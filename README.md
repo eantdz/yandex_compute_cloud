@@ -1,1 +1,0 @@
-# yandex_compute_cloud

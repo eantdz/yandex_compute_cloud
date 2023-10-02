@@ -1,0 +1,14 @@
+# Terraform 
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfvars
+yandex_cloud_provider.tf
+user-meta.txt
+
+# Kubernetes 
+env-configmap.yaml
+
+# Ansible
+ansible/install_sellmatica.yaml

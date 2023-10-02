@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service_app: metrics-app
+  name: metrics-app-service
+spec:
+  ports:
+    - name: "lb-external"
+      port: 8000
+      targetPort: 80
+  selector:
+    service_app: metrics-app
+  type: LoadBalancer
