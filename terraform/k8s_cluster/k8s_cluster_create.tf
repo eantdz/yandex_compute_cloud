@@ -25,8 +25,8 @@ resource "yandex_kubernetes_cluster" "kube-cluster-01" {
 
   }
 
-  service_account_id      = var.svc_account_id
-  node_service_account_id = var.svc_account_id
+  service_account_id      = yandex_iam_service_account.k8s-editor.id
+  node_service_account_id = yandex_iam_service_account.k8s-img-puller.id
 
   release_channel         = "RAPID"
   network_policy_provider = "CALICO"
