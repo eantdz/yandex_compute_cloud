@@ -1,8 +1,3 @@
-### Variables 
-locals {
-  svc_account_id = "aje3172jpjn3e1npadrj"
-}
-
 ### Starting manifest
 resource "yandex_kubernetes_cluster" "kube-cluster-01" {
   name        = "kube-cluster-01"
@@ -30,8 +25,8 @@ resource "yandex_kubernetes_cluster" "kube-cluster-01" {
 
   }
 
-  service_account_id      = local.svc_account_id
-  node_service_account_id = local.svc_account_id
+  service_account_id      = var.svc_account_id
+  node_service_account_id = var.svc_account_id
 
   release_channel         = "RAPID"
   network_policy_provider = "CALICO"
