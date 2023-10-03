@@ -20,7 +20,7 @@ spec:
             - manage.py
             - metrics-server
             - --host
-            - 0.0.0.0
+            - metrics-server-service.sellmatica-metrics-api.svc.cluster.local
             - --port
             - "6000"
           env:
@@ -54,6 +54,13 @@ spec:
                 configMapKeyRef:
                   key: POSTGRES_USER
                   name: env
+            - name: METRICS_SERVER_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: METRICS_SERVER_HOST
+                  name: env
           image: "{{ .Values.image }}"
           name: metrics-server
+          ports:
+            - containerPort: 6000
       restartPolicy: Always

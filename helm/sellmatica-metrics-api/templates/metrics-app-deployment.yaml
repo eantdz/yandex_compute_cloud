@@ -53,6 +53,11 @@ spec:
                 configMapKeyRef:
                   key: POSTGRES_USER
                   name: env
+            - name: METRICS_SERVER_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: METRICS_SERVER_HOST
+                  name: env
           image: "{{ .Values.image }}"
           name: metrics-app
           ports:

@@ -6,9 +6,10 @@ metadata:
   name: metrics-app-service
 spec:
   ports:
-    - name: "lb-external"
+    - name: load-balancer
       port: 8000
       targetPort: 80
   selector:
     service_app: metrics-app
   type: LoadBalancer
+  loadBalancerIP: 84.201.174.250
