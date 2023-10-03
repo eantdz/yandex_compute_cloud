@@ -2,27 +2,26 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service_app: metrics-server
-  name: metrics-server
+    service_app: metrics-app
+  name: metrics-app
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      service_app: metrics-server
+      service_app: metrics-app
   template:
     metadata:
       labels:
-        service_app: metrics-server
+        service_app: metrics-app
     spec:
       containers:
         - args:
-            - python
-            - manage.py
-            - metrics-server
+            - uvicorn
+            - src:app
             - --host
             - 0.0.0.0
             - --port
-            - "6000"
+            - "80"
           env:
             - name: API_BASE_URL
               valueFrom:
@@ -54,6 +53,8 @@ spec:
                 configMapKeyRef:
                   key: POSTGRES_USER
                   name: env
-          image: cr.yandex/crp1t6m7uhtcu84orrjq/sellmatica-metrics-app:1.0
-          name: metrics-server
+          image: "{{ .Values.image }}"
+          name: metrics-app
+          ports:
+            - containerPort: 80
       restartPolicy: Always

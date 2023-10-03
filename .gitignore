@@ -9,6 +9,7 @@ user-meta.txt
 
 # Kubernetes 
 env-configmap.yaml
+sa-key.json
 
 # Ansible
 ansible/install_sellmatica.yaml

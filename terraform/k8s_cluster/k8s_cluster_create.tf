@@ -1,4 +1,4 @@
-### Starting manifest
+### Kubernetes master
 resource "yandex_kubernetes_cluster" "kube-cluster-01" {
   name        = "kube-cluster-01"
   description = "first k8s cluster"
@@ -31,8 +31,15 @@ resource "yandex_kubernetes_cluster" "kube-cluster-01" {
   release_channel         = "RAPID"
   network_policy_provider = "CALICO"
 
+### Depends on folder iam binding to svc accounts
+  depends_on = [
+    yandex_resourcemanager_folder_iam_binding.k8s-editor,
+    yandex_resourcemanager_folder_iam_binding.k8s-img-puller
+  ]
+
 }
 
+### Node group
 resource "yandex_kubernetes_node_group" "kube-nodes-01" {
   cluster_id  = yandex_kubernetes_cluster.kube-cluster-01.id
   name        = "kube-nodes-01"
