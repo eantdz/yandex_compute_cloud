@@ -20,7 +20,7 @@ spec:
             - manage.py
             - metrics-server
             - --host
-            - metrics-server-service.sellmatica-metrics-api.svc.cluster.local
+            - 0.0.0.0
             - --port
             - "6000"
           env:

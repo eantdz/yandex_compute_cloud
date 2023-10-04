@@ -7,8 +7,9 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - name: metrics-server-http
+    - name: metrics-server-service
       port: 6000
+      targetPort: 6000
   selector:
     service_app: metrics-server
   type: ClusterIP
