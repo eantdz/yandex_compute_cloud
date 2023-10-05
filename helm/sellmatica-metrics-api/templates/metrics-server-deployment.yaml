@@ -2,17 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service_app: metrics-server
+    container: metrics-server
+    environment: production
   name: metrics-server
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      service_app: metrics-server
+      container: metrics-server
+      environment: production
   template:
     metadata:
       labels:
-        service_app: metrics-server
+        container: metrics-server
+        environment: production
     spec:
       containers:
         - args:
@@ -59,7 +62,7 @@ spec:
                 configMapKeyRef:
                   key: METRICS_SERVER_HOST
                   name: env
-          image: "{{ .Values.image }}"
+          image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
           name: metrics-server
           ports:
             - containerPort: 6000

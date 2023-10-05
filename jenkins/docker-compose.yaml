@@ -19,7 +19,6 @@ services:
 ###================volumes================###
 volumes:
   jenkins_home:
-    external: true
 
 ###============overlay network============###
 networks:

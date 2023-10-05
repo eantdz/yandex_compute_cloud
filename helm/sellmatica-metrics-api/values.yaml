@@ -1,4 +1,7 @@
 ### Default values for my HelmChart
 
-image: cr.yandex/crp1t6m7uhtcu84orrjq/sellmatica-metrics-app:1.2
+image: 
+  repo: cr.yandex/crp1t6m7uhtcu84orrjq/sellmatica-metrics-app
+  tag: 1.2
+
 replicaCount: 1

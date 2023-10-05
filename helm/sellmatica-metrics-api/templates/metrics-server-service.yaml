@@ -2,14 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service_app: metrics-server
+    service: metrics-server
+    environment: production
   name: metrics-server-service
 spec:
-  type: ClusterIP
   ports:
     - name: metrics-server-service
       port: 6000
       targetPort: 6000
   selector:
-    service_app: metrics-server
+    container: metrics-server
+    environment: production
   type: ClusterIP

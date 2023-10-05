@@ -10,8 +10,8 @@ node {
         }
     }
 
-    stage 'Update kube-config' {
+   /* stage 'Update kube-config' {
         sh 'rm -rf /data/.kube/* \
             && yc k8s cluster get-credentials --name k8s-cluster-01 --external'
-    }
+    } */
 } 

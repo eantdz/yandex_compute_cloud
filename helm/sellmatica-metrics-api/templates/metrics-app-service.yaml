@@ -2,7 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service_app: metrics-app
+    service: metrics-app
+    environment: production
   name: metrics-app-service
 spec:
   ports:
@@ -10,6 +11,7 @@ spec:
       port: 8000
       targetPort: 80
   selector:
-    service_app: metrics-app
+    container: metrics-app
+    environment: production
   type: LoadBalancer
   loadBalancerIP: 84.201.174.250
