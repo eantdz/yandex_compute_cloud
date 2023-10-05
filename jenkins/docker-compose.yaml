@@ -1,0 +1,28 @@
+### Docker swarm deploy Jenkins to local WSL machine for CI/CD with Terraform/Ansible. 
+
+###===============services===============###
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:latest
+    volumes:
+      - jenkins_home:/var/jenkins_home # Default jenkins home library
+      - /home/svc-wsl:/data # Yandex Compute Cloud projects and files
+      - /usr/bin/terraform:/usr/bin/terraform # To provide terraform resources for Yandex Compute Cloud
+      - /home/svc-wsl/.terraformrc:/var/jenkins_home/.terraformrc # To initialize cloud provider
+    networks:
+      - jenkins_network
+    ports:
+      - "8080:8080"
+      - "5000:5000"
+
+###================volumes================###
+volumes:
+  jenkins_home:
+    external: true
+
+###============overlay network============###
+networks:
+  jenkins_network:
+    driver: bridge
+

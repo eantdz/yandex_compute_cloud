@@ -28,8 +28,7 @@ resource "yandex_kubernetes_cluster" "kube-cluster-01" {
   service_account_id      = yandex_iam_service_account.k8s-editor.id
   node_service_account_id = yandex_iam_service_account.k8s-img-puller.id
 
-  release_channel         = "RAPID"
-  network_policy_provider = "CALICO"
+  release_channel         = "REGULAR"
 
 ### Depends on folder iam binding to svc accounts
   depends_on = [
@@ -75,7 +74,7 @@ resource "yandex_kubernetes_node_group" "kube-nodes-01" {
 
   scale_policy {
     fixed_scale {
-      size = 1
+      size = 3
     }
   }
 
