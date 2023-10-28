@@ -1,18 +1,20 @@
-### Starting manifest
-resource "yandex_compute_instance" "master-vm" {
-  name        = "master-vm"
+### VM
+resource "yandex_compute_instance" "docker-master-01" {
+  name        = "docker-master-01"
   platform_id = "standard-v1"
   zone        = var.default_zone
 
   resources {
     core_fraction = 20
-    cores         = 1
-    memory        = 1
+    cores         = 2
+    memory        = 2
   }
 
   scheduling_policy {
     preemptible = "false"
   }
+
+  allow_stopping_for_update = true
 
   boot_disk {
     initialize_params {
@@ -23,9 +25,9 @@ resource "yandex_compute_instance" "master-vm" {
   }
 
   network_interface {
-    subnet_id = yandex_vpc_subnet.vm-subnet-a.id
-    nat = "true"
-    nat_ip_address = yandex_vpc_address.master-vm-external_ipv4_addr.address
+    subnet_id      = data.yandex_vpc_subnet.network-01-subnet-a.id
+    nat            = "true"
+    nat_ip_address = var.external_ip
   }
 
   metadata = {

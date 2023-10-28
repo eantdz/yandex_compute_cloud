@@ -12,8 +12,3 @@ variable "default_zone" {
     type = string
     description = "Default zone"
 }
-
-variable "image_id" {
-  type = string
-  description = "OS image ID"
-}

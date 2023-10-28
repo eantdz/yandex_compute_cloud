@@ -4,8 +4,9 @@
 terraform.tfstate
 terraform.tfstate.backup
 terraform.tfvars
-yandex_cloud_provider.tf
+provider.tf
 user-meta.txt
+key.json
 
 # Kubernetes 
 env-configmap.yaml
