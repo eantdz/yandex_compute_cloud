@@ -1,17 +1,17 @@
 ### Starting manifest
-resource "yandex_compute_instance" "vm-01" {
-  name        = "vm-01"
+resource "yandex_compute_instance" "master-vm" {
+  name        = "master-vm"
   platform_id = "standard-v1"
-  zone        = "ru-central1-a"
+  zone        = var.default_zone
 
   resources {
-    core_fraction = 5
-    cores         = 2
-    memory        = 2
+    core_fraction = 20
+    cores         = 1
+    memory        = 1
   }
 
   scheduling_policy {
-    preemptible = "true"
+    preemptible = "false"
   }
 
   boot_disk {
@@ -25,7 +25,7 @@ resource "yandex_compute_instance" "vm-01" {
   network_interface {
     subnet_id = yandex_vpc_subnet.vm-subnet-a.id
     nat = "true"
-    nat_ip_address = "84.201.133.171"
+    nat_ip_address = yandex_vpc_address.master-vm-external_ipv4_addr.address
   }
 
   metadata = {
