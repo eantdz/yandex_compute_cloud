@@ -28,6 +28,7 @@ resource "yandex_compute_instance" "docker-master-01" {
     subnet_id      = data.yandex_vpc_subnet.network-01-subnet-a.id
     nat            = "true"
     nat_ip_address = var.external_ip
+    security_group_ids = ["${data.yandex_vpc_security_group.docker-swarm-security.id}"]
   }
 
   metadata = {
