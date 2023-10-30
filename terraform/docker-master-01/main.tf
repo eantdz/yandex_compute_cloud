@@ -5,6 +5,7 @@ locals {
   memory         = "2"
   boot_disk_size = "20"
   boot_disk_type = "network-hdd"
+  ip_address     = "10.2.0.10"
 }
 
 # Compute instance
@@ -30,13 +31,14 @@ resource "yandex_compute_instance" "docker-master-01" {
     initialize_params {
       image_id = var.image_id
       size     = local.boot_disk_size
-      type     = "${local.boot_disk_type}"
+      type     = local.boot_disk_type
     }
   }
 
   # Docker node network settings
   network_interface {
     subnet_id          = data.yandex_vpc_subnet.network-01-subnet-a.id
+    ip_address         = local.ip_address
     nat                = "true"
     security_group_ids = ["${data.yandex_vpc_security_group.docker-swarm-security.id}"]
   }

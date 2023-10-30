@@ -2,15 +2,15 @@
 locals {
   core_fraction  = "20"
   cores          = "2"
-  memory         = "1"
+  memory         = "2"
   boot_disk_size = "20"
   boot_disk_type = "network-hdd"
-  nat_ip_address = "51.250.79.208"
+  ip_address     = "10.2.0.11"
 }
 
 # Compute instance
-resource "yandex_compute_instance" "bastion-host" {
-  name        = "bastion-host"
+resource "yandex_compute_instance" "docker-slave-01" {
+  name        = "docker-slave-01"
   platform_id = "standard-v1"
   zone        = var.default_zone
 
@@ -31,15 +31,16 @@ resource "yandex_compute_instance" "bastion-host" {
     initialize_params {
       image_id = var.image_id
       size     = local.boot_disk_size
-      type     = "${local.boot_disk_type}"
+      type     = local.boot_disk_type
     }
   }
-  # Bastion network settings
+
+  # Docker node network settings
   network_interface {
-    subnet_id          = data.yandex_vpc_subnet.network-01-subnet-b.id
+    subnet_id          = data.yandex_vpc_subnet.network-01-subnet-a.id
+    ip_address         = local.ip_address
     nat                = "true"
-    nat_ip_address     = local.nat_ip_address
-    security_group_ids = ["${data.yandex_vpc_security_group.external-bastion-security.id}"]
+    security_group_ids = ["${data.yandex_vpc_security_group.docker-swarm-security.id}"]
   }
 
   # Cloud-init settings

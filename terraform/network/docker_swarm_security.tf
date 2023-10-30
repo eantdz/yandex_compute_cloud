@@ -9,9 +9,9 @@ resource "yandex_vpc_security_group" "docker-swarm-security" {
 
   # Connections between docker master/slave and NFS nodes
   ingress {
-    from_port = 0
-    to_port = 65535
-    protocol = "ANY"
+    from_port      = 0
+    to_port        = 65535
+    protocol       = "ANY"
     v4_cidr_blocks = ["10.2.0.0/16"]
   }
 
