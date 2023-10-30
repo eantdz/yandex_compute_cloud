@@ -17,3 +17,8 @@ variable "image_id" {
   type        = string
   description = "OS image ID"
 }
+
+variable "external_ip" {
+  type        = string
+  description = "External IPv4 Address"
+}
