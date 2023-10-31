@@ -31,7 +31,7 @@ resource "yandex_compute_instance" "bastion-host" {
     initialize_params {
       image_id = var.image_id
       size     = local.boot_disk_size
-      type     = "${local.boot_disk_type}"
+      type     = local.boot_disk_type
     }
   }
   # Bastion network settings

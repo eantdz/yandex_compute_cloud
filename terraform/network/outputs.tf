@@ -2,6 +2,10 @@ output "bastion-host-ipv4-external" {
   value = yandex_vpc_address.bastion-host-ipv4-external.external_ipv4_address
 }
 
+output "nlb-ipv4-external" {
+  value = yandex_vpc_address.nlb-ipv4-external.external_ipv4_address
+}
+
 output "network_id" {
   value = yandex_vpc_network.network-01.id
 }

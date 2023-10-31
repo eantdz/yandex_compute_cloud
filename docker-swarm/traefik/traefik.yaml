@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: "traefik:v2.6"
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.swarmMode=true"
+      - "--providers.docker.exposedByDefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    networks:
+      - traefik-net
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/path/to/your/cert.pem:/etc/traefik/certs/cert.pem"
+      - "/path/to/your/key.pem:/etc/traefik/certs/key.pem"
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.traefik.rule=Host(`dev-platform.ru`)"
+        - "traefik.http.routers.traefik.entrypoints=web,websecure"
+        - "traefik.http.routers.traefik.service=api@internal"
+        - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+        - "traefik.http.routers.traefik-secure.rule=Host(`dev-platform.ru`)"
+        - "traefik.http.routers.traefik-secure.entrypoints=websecure"
+        - "traefik.http.routers.traefik-secure.service=api@internal"
+        - "traefik.http.services.traefik-secure.loadbalancer.server.port=8080"
+        - "traefik.http.routers.traefik-secure.tls=true"
+        - "traefik.http.routers.traefik-secure.tls.cert=/etc/traefik/certs/cert.pem"
+        - "traefik.http.routers.traefik-secure.tls.key=/etc/traefik/certs/key.pem"
+
+networks:
+  traefik-net:
+    driver: overlay
